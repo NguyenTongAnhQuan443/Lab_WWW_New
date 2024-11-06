@@ -13,7 +13,9 @@ import java.util.List;
 @Repository
 public interface IJobRepository extends PagingAndSortingRepository<Job, Long>, CrudRepository<Job, Long> {
     boolean deleteJobById(long id);
+
     List<Job> findAllByCompanyId(long id);
+
     @Modifying
     @Query("select j from  Job j join j.jobSkills js join js.skill s join s.candidateSkills cs where cs.can.id =: candidateID and cs.can.address.city = j.company.address.city")
     List<Job> findAllJobMatchWithCandidate(@Param("candidateID") long candidateID);
