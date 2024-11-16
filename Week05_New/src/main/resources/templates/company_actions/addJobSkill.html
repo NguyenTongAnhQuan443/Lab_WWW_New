@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Job Skill</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="parts/navbar"></div>
+
+<!-- Add Job Skill Form -->
+<div class="form-container">
+    <h1>Thêm Kỹ Năng Cho Công Việc</h1>
+    <form method="post" action="#" th:action="@{/job-skills/add}" th:object="${jobSkill}">
+        <!-- Job -->
+        <div class="form-group">
+            <label for="inputJob">Tên Công Việc</label>
+            <input type="text" class="form-control" id="inputJob" th:value="${jobID}" th:name="job" placeholder="Tên công việc" required readonly>
+        </div>
+
+        <!-- Skill -->
+        <div class="form-group">
+            <label for="inputSkill">Kỹ Năng</label>
+            <select class="form-control" th:field="*{skill}" id="inputSkill">
+                <th:block th:each="skill : ${skills}">
+                    <option th:value="${skill.getId()}" th:text="${skill.getSkillName()}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <!-- Skill Level -->
+        <div class="form-group">
+            <label for="inputSkillLevel">Cấp Độ Kỹ Năng</label>
+            <select class="form-control" th:field="*{skillLevel}" id="inputSkillLevel">
+                <th:block th:each="level : ${skillLevel}">
+                    <option th:value="${level}" th:text="${level.name()}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <!-- More Infos -->
+        <div class="form-group">
+            <label for="moreInfoId">Thông Tin Thêm</label>
+            <textarea rows="6" class="form-control" th:field="*{moreInfo}" id="moreInfoId" placeholder="Nhập thông tin chi tiết thêm..."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-block">Thêm Kỹ Năng</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

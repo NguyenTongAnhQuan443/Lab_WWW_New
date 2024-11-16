@@ -1,38 +1,73 @@
 package vn.edu.iuh.fit.backend.models;
 
+import com.neovisionaries.i18n.CountryCode;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@Table(name = "address")
+@AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "address", schema = "www_week5_works")
+@NoArgsConstructor
 public class Address {
     @Id
+    @Column(name = "add_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
-    @Column(name = "street", length = 150)
+    @Column(columnDefinition = "varchar(150)")
     private String street;
 
-    @Column(name = "city", length = 50)
+    @Column(columnDefinition = "varchar(50)")
     private String city;
 
-    @Column(name = "country")
-    private Short country;
+    @Column(columnDefinition = "smallint(6)")
+    private CountryCode country;
 
-    @Column(name = "number", length = 20)
-    private String number;
-
-    @Column(name = "zipcode", length = 7)
+    @Column(columnDefinition = "varchar(7)")
     private String zipcode;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Candidate candidate;
-
-    @OneToOne(mappedBy = "address")
+    @Column(columnDefinition = "varchar(20)")
+    private String number;
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Company company;
 
+    public Address(long id) {
+        this.id = id;
+    }
+
+    public Address(CountryCode country, String city, String zipcode, String street, String number) {
+        this.country = country;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.street = street;
+        this.number = number;
+    }
+
+    public Address(long id, CountryCode country, String city, String zipcode, String street, String number) {
+        this.id = id;
+        this.country = country;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.street = street;
+        this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", country=" + country +
+                ", city='" + city + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", street='" + street + '\'' +
+                ", number='" + number + '\'' +
+                '}';
+    }
 }

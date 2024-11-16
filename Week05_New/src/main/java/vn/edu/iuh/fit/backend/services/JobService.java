@@ -5,47 +5,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.edu.iuh.fit.backend.models.Job;
 import vn.edu.iuh.fit.backend.repositories.IJobRepository;
+import vn.edu.iuh.fit.backend.models.Job;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class JobService {
-    private IJobRepository iJobRepository;
-
+    private IJobRepository jobRepository;
     @Autowired
-    public JobService(IJobRepository iJobRepository) {
-        this.iJobRepository = iJobRepository;
+    public JobService(IJobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
-
     @Transactional
-    public boolean insert(Job job) {
-        iJobRepository.save(job);
+    public boolean insert(Job job){
+        jobRepository.save(job);
         return true;
     }
-
     @Transactional
-    public boolean update(Job job) {
-        iJobRepository.save(job);
+    public boolean update(Job job){
+        jobRepository.save(job);
         return true;
     }
-
     @Transactional
-    public boolean delete(long id) {
-        return iJobRepository.deleteJobById(id);
+    public boolean delete(long id){
+        return jobRepository.deleteJobById(id);
     }
-
     @Transactional(readOnly = true)
-    public Optional<Job> findOne(long id) {
-        return iJobRepository.findById(id);
+    public Optional<Job> findOne(long id){
+        return jobRepository.findById(id);
     }
-
     @Transactional(readOnly = true)
-    public List<Job> findAll(int pageNumber, int pageSize) {
-        return iJobRepository.findAll(
-                PageRequest.of(pageNumber, pageSize, Sort.by("id").descending())
-        ).getContent();
+    public List<Job> findAll(int page, int size){
+        return jobRepository.findAll(PageRequest.of(page, size
+                , Sort.by("id").descending())).getContent();
     }
 }

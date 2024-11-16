@@ -5,49 +5,43 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.edu.iuh.fit.backend.models.CandidateSkill;
-import vn.edu.iuh.fit.backend.models.CandidateSkillId;
 import vn.edu.iuh.fit.backend.repositories.ICandidateSkillRepository;
+import vn.edu.iuh.fit.backend.models.CandidateSkill;
+import vn.edu.iuh.fit.backend.models.ids.CandidateSkillId;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CandidateSkillService {
-
-    private ICandidateSkillRepository iCandidateSkillRepository;
+    private ICandidateSkillRepository candidateSkillRepository;
 
     @Autowired
-    public CandidateSkillService(ICandidateSkillRepository iCandidateSkillRepository) {
-        this.iCandidateSkillRepository = iCandidateSkillRepository;
+    public CandidateSkillService(ICandidateSkillRepository candidateSkillRepository) {
+        this.candidateSkillRepository = candidateSkillRepository;
     }
-
     @Transactional
     public boolean insert(CandidateSkill candidateSkill) {
-        iCandidateSkillRepository.save(candidateSkill);
+        candidateSkillRepository.save(candidateSkill);
         return true;
     }
-
     @Transactional
     public boolean update(CandidateSkill candidateSkill) {
-        iCandidateSkillRepository.save(candidateSkill);
+        candidateSkillRepository.save(candidateSkill);
         return true;
     }
-
     @Transactional
     public boolean delete(long canID, long skillID) {
-        return iCandidateSkillRepository.deleteCandidateSkillByCanAndSkill(canID, skillID);
+        return candidateSkillRepository.deleteCandidateSkillByCandidateAndSkill(canID, skillID);
     }
-
     @Transactional(readOnly = true)
     public Optional<CandidateSkill> findOne(long canID, long skillID) {
-        return iCandidateSkillRepository.findById(new CandidateSkillId(canID, skillID));
+        return candidateSkillRepository.findById(new CandidateSkillId(canID, skillID));
     }
-
     @Transactional(readOnly = true)
-    public List<CandidateSkill> findAll(int pageNumber, int pageSize) {
-        return iCandidateSkillRepository.findAll(
-                PageRequest.of(pageNumber, pageSize, Sort.by("candidate").descending().and(Sort.by("skill")))
-        ).getContent();
+    public List<CandidateSkill> findAll(int page, int size) {
+        return candidateSkillRepository.findAll(PageRequest.of(page, size, Sort.by("candidate")
+                .descending().and(Sort.by("skill")))).getContent();
     }
 }
+

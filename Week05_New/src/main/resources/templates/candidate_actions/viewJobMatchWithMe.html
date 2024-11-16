@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Việc Làm Phù Hợp</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #e74c3c;
+            margin-top: 40px;
+        }
+
+        table {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #2575fc;
+            color: white;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .no-jobs {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="parts/navbar"></div>
+
+<!-- Job Matching Section -->
+<div class="container">
+    <div th:if="${jobs == null || jobs.isEmpty()}">
+        <h2 class="no-jobs">Không có công việc nào phù hợp với bạn</h2>
+    </div>
+    <div th:unless="${jobs == null || jobs.isEmpty()}">
+        <h1>Công Việc Phù Hợp Với Bạn</h1>
+        <table class="table table-hover mt-4">
+            <thead>
+            <tr>
+                <th>Mã Công Ty</th>
+                <th>Tên Công Ty</th>
+                <th>Mã Công Việc</th>
+                <th>Tên Công Việc</th>
+                <th>Mô Tả Công Việc</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="job : ${jobs}">
+                <td th:text="${job.getCompany().getId()}"></td>
+                <td th:text="${job.getCompany().getName()}"></td>
+                <td th:text="${job.getId()}"></td>
+                <td th:text="${job.getName()}"></td>
+                <td th:text="${job.getDescription()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

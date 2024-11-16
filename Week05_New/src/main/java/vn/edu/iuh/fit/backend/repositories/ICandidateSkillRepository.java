@@ -7,15 +7,16 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.backend.models.CandidateSkill;
-import vn.edu.iuh.fit.backend.models.CandidateSkillId;
+import vn.edu.iuh.fit.backend.models.ids.CandidateSkillId;
 
 import java.util.List;
 
 @Repository
 public interface ICandidateSkillRepository extends PagingAndSortingRepository<CandidateSkill, CandidateSkillId>, CrudRepository<CandidateSkill, CandidateSkillId> {
     @Modifying
-    @Query("delete from CandidateSkill cs where cs.can.id =: canID and cs.skill.id =: skillID")
-    boolean deleteCandidateSkillByCanAndSkill(@Param("canID") long canID, @Param("skillID") long skillID);
+    @Query("DELETE FROM CandidateSkill CK where CK.candidate.id = :canID and CK.skill.id = :skillID")
+    public boolean deleteCandidateSkillByCandidateAndSkill(@Param("canID") long canID, @Param("skillID") long skillID);
 
-    List<CandidateSkill> getCandidateSkillByCan_Id(long candidateID);
+    public List<CandidateSkill>  getCandidateSkillByCandidate_Id(long candidateID);
+
 }

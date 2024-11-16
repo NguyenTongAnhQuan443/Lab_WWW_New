@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Skills</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        h1, h2 {
+            color: #343a40;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #2575fc;
+            color: white;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+        }
+
+        .no-skills {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="parts/navbar"></div>
+
+<!-- Candidate Skills Section -->
+<div class="container">
+    <div th:switch="${candidateSkills}">
+        <!-- No Skills -->
+        <h2 th:case="null" class="no-skills">Không có kỹ năng nào ứng viên đã học</h2>
+        <!-- Skills Table -->
+        <div th:case="*">
+            <h1>Danh Sách Các Kỹ Năng Của Ứng Viên</h1>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Candidate ID</th>
+                    <th>Skill ID</th>
+                    <th>Tên Kỹ Năng</th>
+                    <th>Cấp Độ Kỹ Năng</th>
+                    <th>Thông Tin Thêm</th>
+                    <th>Hành Động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="candidateSkill : ${candidateSkills}">
+                    <td th:text="${candidateSkill.getCandidate().getId()}"></td>
+                    <td th:text="${candidateSkill.getSkill().getId()}"></td>
+                    <td th:text="${candidateSkill.getSkill().getSkillName()}"></td>
+                    <td th:text="${candidateSkill.getSkillLevel()}"></td>
+                    <td th:text="${candidateSkill.getMoreInfo()}"></td>
+                    <td>
+                        <a th:href="@{/candidate_skills/openAddCandSkill(candidateID=${candidateSkill.getCandidate().getId()})}"
+                           class="btn btn-primary btn-sm">
+                            Thêm Kỹ Năng
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

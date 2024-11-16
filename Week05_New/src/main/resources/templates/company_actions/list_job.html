@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        h1 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #2575fc;
+            color: white;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:replace="parts/navbar"></div>
+
+<!-- Jobs List -->
+<div class="container">
+    <div th:switch="${jobs}">
+        <h2 th:case="null">Không có công việc nào được tìm thấy.</h2>
+        <div th:case="*">
+            <h1 class="text-center">Danh Sách Công Việc</h1>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Tên Công Việc</th>
+                    <th>Mô Tả Công Việc</th>
+                    <th>Hành Động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="job : ${jobs}">
+                    <td scope="row" th:text="${job.id}"></td>
+                    <td th:text="${job.name}"></td>
+                    <td th:text="${job.description}"></td>
+                    <td>
+                        <a th:href="@{/job-skills/openAddJobSkill(jobID=${job.getId()})}"
+                           class="btn btn-primary btn-sm">
+                            Thêm Kỹ Năng
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

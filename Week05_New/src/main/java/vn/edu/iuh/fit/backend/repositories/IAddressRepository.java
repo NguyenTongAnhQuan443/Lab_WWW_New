@@ -7,5 +7,5 @@ import vn.edu.iuh.fit.backend.models.Address;
 
 @Repository
 public interface IAddressRepository extends PagingAndSortingRepository<Address, Long>, CrudRepository<Address, Long> {
-    boolean deleteAddressById(long id);
+    public boolean deleteAddressById(long id);
 }

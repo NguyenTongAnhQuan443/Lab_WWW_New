@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @Repository
 public interface ICandidateRepository extends PagingAndSortingRepository<Candidate, Long>, CrudRepository<Candidate, Long> {
-    boolean deleteCandidateById(long id);
 
-    Optional<Candidate> findCandidateByUsernameAndPassword(String userName, String password);
-
-    @Query("select c from Candidate c join c.candidateSkills ck join ck.skill s join s.jobSkills js join js.job j where j.id =: jobID and c.address.city = j.company.address.city")
-    List<Candidate> findCadidatesMatchWithJobs(@Param("jobID") long id);
+    public boolean deleteCandidateById(long id);
+    public Optional<Candidate> findCandidateByUsernameAndPassword(String username, String password);
+    @Query("select c from Candidate c join c.candidateSkills ck join ck.skill s join s.jobSkills js join js.job j " +
+            "where j.id = :jobID and c.address.city = j.company.address.city")
+    public List<Candidate> findCadidatesMatchWithJobs(@Param("jobID") long jobID);
 }

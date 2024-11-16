@@ -1,33 +1,41 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
+@Entity
+@Table(name = "job")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "job", schema = "www_week5_works")
 public class Job {
     @Id
+    @Column(name = "job_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "job_id", nullable = false)
-    private Long id;
-
-    @Column(name = "job_desc", nullable = false, length = 2000)
-    private String jobDesc;
-
+    private long id;
     @Column(name = "job_name", nullable = false)
-    private String jobName;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company")
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "company", referencedColumnName = "com_id")
     private Company company;
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobSkill> jobSkills;
+    @Column(name = "job_desc", columnDefinition = "varchar(2000)", nullable = false)
+    private String description;
 
-    @OneToMany(mappedBy = "job")
-    private Set<JobSkill> jobSkills = new LinkedHashSet<>();
-
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", company=" + company +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

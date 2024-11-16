@@ -7,11 +7,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.backend.models.JobSkill;
-import vn.edu.iuh.fit.backend.models.JobSkillId;
-
+import vn.edu.iuh.fit.backend.models.ids.JobSkillId;
 @Repository
-public interface IJobSkillRepository extends PagingAndSortingRepository<JobSkill, JobSkillId>, CrudRepository<JobSkill, JobSkillId> {
+public interface IJobSkillRepository extends PagingAndSortingRepository<JobSkill, JobSkillId>
+        , CrudRepository<JobSkill, JobSkillId> {
     @Modifying
-    @Query("delete from JobSkill js where js.job.id =: jobID and js.skill.id =: skillID")
-    boolean deleteByJobIdAndSkillId(@Param("jobID") long jobID, @Param("skillID") long skillIID);
+    @Query("delete from JobSkill jk where jk.job.id = :jobID and jk.skill.id = :skillID")
+    public boolean deleteByJobIdAndSkillId(@Param("jobID") long jobID, @Param("skillID") long skillID);
 }

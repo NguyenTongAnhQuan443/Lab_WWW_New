@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface ICompanyRepository extends PagingAndSortingRepository<Company, Long>, CrudRepository<Company, Long> {
-    boolean deleteCompanyById(long id);
 
-    Optional<Company> findCompaniesByUsernameAndPassword(String userName, String password);
+    public boolean deleteCompanyById(long id);
+
+    public Optional<Company> findCompaniesByUsernameAndPassword(String username, String password);
+
 }

@@ -5,47 +5,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.edu.iuh.fit.backend.models.Company;
 import vn.edu.iuh.fit.backend.repositories.ICompanyRepository;
+import vn.edu.iuh.fit.backend.models.Company;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CompanyService {
-    private ICompanyRepository iCompanyRepository;
-
+    private ICompanyRepository companyRepository;
     @Autowired
-    public CompanyService(ICompanyRepository iCompanyRepository) {
-        this.iCompanyRepository = iCompanyRepository;
+    public CompanyService(ICompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
-
     @Transactional
-    public boolean insert(Company company) {
-        iCompanyRepository.save(company);
+    public boolean insert(Company company){
+        companyRepository.save(company);
         return true;
     }
-
     @Transactional
-    public boolean update(Company company) {
-        iCompanyRepository.save(company);
+    public boolean update(Company company){
+        companyRepository.save(company);
         return true;
     }
-
     @Transactional
-    public boolean delete(long id) {
-        return iCompanyRepository.deleteCompanyById(id);
+    public boolean delete(long id){
+        return companyRepository.deleteCompanyById(id);
     }
-
     @Transactional(readOnly = true)
-    public Optional<Company> findOne(long id) {
-        return iCompanyRepository.findById(id);
+    public Optional<Company> findOne(long id){
+        return companyRepository.findById(id);
     }
-
     @Transactional(readOnly = true)
-    public List<Company> findAll(int pageNumber, int pageSize) {
-        return iCompanyRepository.findAll(
-                PageRequest.of(pageNumber, pageSize, Sort.by("id").descending())
-        ).getContent();
+    public List<Company> findAll(int page, int size){
+        return companyRepository.findAll(PageRequest.of(page, size,
+                Sort.by("id").descending())).getContent();
     }
 }

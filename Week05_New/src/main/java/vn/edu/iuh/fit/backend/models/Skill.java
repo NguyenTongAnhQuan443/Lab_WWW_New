@@ -1,35 +1,53 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.edu.iuh.fit.backend.enums.SkillType;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
+@Entity
+@Table(name = "skill")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "skill", schema = "www_week5_works")
 public class Skill {
     @Id
+    @Column(name = "skill_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "skill_id", nullable = false)
-    private Long id;
-
-    @Column(name = "skill_description")
-    private String skillDescription;
-
-    @Column(name = "skill_name")
+    private long id;
+    @Column(name = "skill_type", columnDefinition = "tinyint(4)", nullable = false)
+    private SkillType type;
+    @Column(name = "skill_name", columnDefinition = "varchar(150)", nullable = false)
     private String skillName;
+    @Column(name = "skill_desc", columnDefinition = "varchar(300)", nullable = false)
+    private String skillDescription;
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobSkill> jobSkills;
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CandidateSkill> candidateSkills;
 
-    @Column(name = "type")
-    private Byte type;
+    public Skill(long id) {
+        this.id = id;
+    }
 
-    @OneToMany(mappedBy = "skill")
-    private Set<CandidateSkill> candidateSkills = new LinkedHashSet<>();
+    public Skill(SkillType type, String skillName, String skillDescription) {
+        this.type = type;
+        this.skillName = skillName;
+        this.skillDescription = skillDescription;
+    }
 
-    @OneToMany(mappedBy = "skill")
-    private Set<JobSkill> jobSkills = new LinkedHashSet<>();
-
+    @Override
+    public String toString() {
+        return "Skill{" +
+                "id=" + id +
+                ", type=" + type +
+                ", skillName='" + skillName + '\'' +
+                ", skillDescription='" + skillDescription + '\'' +
+                '}';
+    }
 }

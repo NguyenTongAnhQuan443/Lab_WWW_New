@@ -1,39 +1,46 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.edu.iuh.fit.backend.enums.SkillLevel;
+import vn.edu.iuh.fit.backend.models.ids.CandidateSkillId;
 
+@Entity
+@Table(name = "candidate_skill")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @IdClass(CandidateSkillId.class)
-@Entity
-@Table(name = "candidate_skill", schema = "www_week5_works")
 public class CandidateSkill {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "can_id", nullable = false)
-    private Long canId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "skill_id", nullable = false)
-    private Long skillId;
-
-    @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "can_id", nullable = false)
-    private Candidate can;
-
-    @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "skill_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
     private Skill skill;
 
-    @Column(name = "more_infos", length = 1000)
-    private String moreInfos;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "can_id")
+    private Candidate candidate;
 
-    @Column(name = "skill_level", nullable = false)
-    private Byte skillLevel;
+    @Column(columnDefinition = "tinyint(4)", name = "skill_level", nullable = false)
+    private SkillLevel skillLevel;
 
+    @Column(name = "more_infos", columnDefinition = "varchar(1000)")
+    private String moreInfo;
+
+
+    @Override
+    public String toString() {
+        return "CandidateSkill{" +
+                "skill=" + skill +
+                ", candidate=" + candidate +
+                ", skillLevel=" + skillLevel +
+                ", moreInfo='" + moreInfo + '\'' +
+                '}';
+    }
 }

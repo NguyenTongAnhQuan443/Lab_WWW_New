@@ -7,47 +7,47 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.edu.iuh.fit.backend.models.Candidate;
 import vn.edu.iuh.fit.backend.repositories.ICandidateRepository;
+import vn.edu.iuh.fit.backend.models.Candidate;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CandidateService {
-    private ICandidateRepository iCandidateRepository;
-
+    private ICandidateRepository candidateRepository;
     @Autowired
-    public CandidateService(ICandidateRepository iCandidateRepository) {
-        this.iCandidateRepository = iCandidateRepository;
+    public CandidateService(ICandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
     }
 
     @Transactional
     public boolean insert(Candidate candidate) {
-        iCandidateRepository.save(candidate);
+        candidateRepository.save(candidate);
         return true;
     }
 
     @Transactional
     public boolean update(Candidate candidate) {
-        iCandidateRepository.save(candidate);
+        candidateRepository.save(candidate);
         return true;
     }
 
     @Transactional
     public boolean delete(long id) {
-        return iCandidateRepository.deleteCandidateById(id);
+        return candidateRepository.deleteCandidateById(id);
     }
 
     @Transactional(readOnly = true)
     public Optional<Candidate> findOne(long id) {
-        return iCandidateRepository.findById(id);
+        return candidateRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
-    public Page<Candidate> findAll(int pageNumber, int pageSize, String sortBy, String sortDerection) {
+    public Page<Candidate> findAll(int pageNo, int pageSize, String sortBy, String sortDerection) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDerection), sortBy);
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
-        return iCandidateRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        return candidateRepository.findAll(pageable);
     }
+
+
 }

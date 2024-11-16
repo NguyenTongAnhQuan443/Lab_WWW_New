@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface ISkillRepository extends PagingAndSortingRepository<Skill, Long>, CrudRepository<Skill, Long> {
-    boolean deleteSkillById(long id);
-
-    @Query("select s from Skill s where s.id not in (select c.skill.id from CandidateSkill cs where cs.can.id =: candidateID)")
-    List<Skill> findSkillCandidateShouldLearn(@Param("candidateID") long candidateID);
+    public boolean deleteSkillById(long id);
+    @Query("select s from Skill s where s.id not in (select cs.skill.id from CandidateSkill cs where cs.candidate.id " +
+            " = :candidateID)")
+    public List<Skill> findSkillCandidateShouldLearn(@Param("candidateID") long candidateID);
 }

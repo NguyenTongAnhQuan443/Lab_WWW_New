@@ -1,18 +1,18 @@
-package vn.edu.iuh.fit.backend.models;
+package vn.edu.iuh.fit.backend.models.ids;
 
 import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
+@Setter
+@ToString
 public class CandidateSkillId implements Serializable {
-    public Long canId;
-
-    public Long skillId;
-
+    private long skill;
+    private long candidate;
 
 }

@@ -1,48 +1,68 @@
 package vn.edu.iuh.fit.backend.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
+@Entity
+@Table(name = "company")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "company", schema = "www_week5_works")
 public class Company {
     @Id
+    @Column(name = "com_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comp_id", nullable = false)
-    private Long id;
-
-    @Column(name = "about", length = 2000)
-    private String about;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
+    private long id;
     @Column(name = "comp_name", nullable = false)
-    private String compName;
-
-    @Column(name = "phone", nullable = false)
+    private String name;
+    @Column(columnDefinition = "varchar(2000)")
+    private String about;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address", referencedColumnName = "add_id", nullable = false)
+    private Address address;
+    @Column(nullable = false)
     private String phone;
-
     @Column(name = "web_url")
-    private String webUrl;
-
-    //    Bổ sung
+    private String webURL;
+    @Column(nullable = false)
+    private String email;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Job> jobs;
     @Column(columnDefinition = "varchar(30)", nullable = false, unique = true)
     private String username;
     @Column(columnDefinition = "varchar(30)", nullable = false)
     private String password;
-    //
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address", nullable = false)
-    private Address address;
 
-    @OneToMany(mappedBy = "company")
-    private Set<Job> jobs = new LinkedHashSet<>();
+    public Company(String name, String about, Address address, String phone, String webURL, String email, String username, String password) {
+        this.name = name;
+        this.about = about;
+        this.address = address;
+        this.phone = phone;
+        this.webURL = webURL;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", about='" + about + '\'' +
+                ", address=" + address +
+                ", phone='" + phone + '\'' +
+                ", webURL='" + webURL + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
+

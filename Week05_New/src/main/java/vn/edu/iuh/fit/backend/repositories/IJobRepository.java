@@ -12,11 +12,11 @@ import java.util.List;
 
 @Repository
 public interface IJobRepository extends PagingAndSortingRepository<Job, Long>, CrudRepository<Job, Long> {
-    boolean deleteJobById(long id);
 
-    List<Job> findAllByCompanyId(long id);
-
+    public boolean deleteJobById(long id);
+    public List<Job> findAllByCompany_Id(long id);
     @Modifying
-    @Query("select j from  Job j join j.jobSkills js join js.skill s join s.candidateSkills cs where cs.can.id =: candidateID and cs.can.address.city = j.company.address.city")
-    List<Job> findAllJobMatchWithCandidate(@Param("candidateID") long candidateID);
+    @Query("select j from Job j join j.jobSkills jk join jk.skill s join s.candidateSkills ck" +
+            " where ck.candidate.id = :candidateID and ck.candidate.address.city = j.company.address.city")
+    public List<Job> findAllJobMatchWithCandidate(@Param("candidateID") long candidateID);
 }

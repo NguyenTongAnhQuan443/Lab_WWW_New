@@ -1,0 +1,44 @@
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <a class="navbar-brand font-weight-bold text-primary" href="/">JobFinder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.companyLogin != null}">
+                <a href="/companys/openPostJob" class="nav-link">Đăng tin tuyển người</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.companyLogin != null}">
+                <a href="/jobs/getAllByCompany" class="nav-link">Danh sách Job của Company</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.companyLogin != null}">
+                <a href="/candidates/findCadidateMatchWithJobsOfCompany" class="nav-link">Tìm ứng viên phù hợp</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.candidateLogin != null}">
+                <a href="/jobs/findJobMatchWithMe" class="nav-link">Công việc phù hợp với tôi</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.candidateLogin != null}">
+                <a href="/candidate_skills/getListByCandidateLogin" class="nav-link">Candidate Skills</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && session.candidateLogin != null}">
+                <a href="/skills/findSkillShouldLearn" class="nav-link">Đề xuất kỹ năng</a>
+            </li>
+            <li class="nav-item" th:if="${session != null && (session.companyLogin != null || session.candidateLogin != null)}">
+                <a th:href="@{/skills/openAddForm}" class="nav-link">Thêm kỹ năng mới</a>
+            </li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <a th:if="${session != null && (session.companyLogin != null || session.candidateLogin != null)}"
+               th:href="@{/logout}" class="btn btn-outline-primary btn-sm mr-2">Logout</a>
+            <a th:if="${session.companyLogin == null && session.candidateLogin == null}"
+               th:href="@{/open-sign-in}" class="btn btn-outline-primary btn-sm mr-2">Login</a>
+            <a th:if="${session == null || (session.companyLogin == null && session.candidateLogin == null)}"
+               th:href="@{/companys/sign-up}" class="btn btn-primary btn-sm mr-2">Sign Up as Company</a>
+            <a th:if="${session == null || (session.companyLogin == null && session.candidateLogin == null)}"
+               th:href="@{/candidates/sign-up}" class="btn btn-secondary btn-sm">Sign Up as Candidate</a>
+        </div>
+    </div>
+</nav>
