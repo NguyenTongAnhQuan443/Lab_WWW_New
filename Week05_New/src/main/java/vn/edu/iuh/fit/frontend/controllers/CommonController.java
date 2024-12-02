@@ -9,26 +9,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import vn.edu.iuh.fit.backend.models.Job;
 import vn.edu.iuh.fit.backend.repositories.ICandidateRepository;
 import vn.edu.iuh.fit.backend.repositories.ICompanyRepository;
 import vn.edu.iuh.fit.backend.models.Candidate;
 import vn.edu.iuh.fit.backend.models.Company;
+import vn.edu.iuh.fit.backend.services.JobService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("")
 public class CommonController {
     private ICandidateRepository candidateRepository;
     private ICompanyRepository companyRepository;
+    private JobService jobService;
 
     @Autowired
-    public CommonController(ICandidateRepository candidateRepository, ICompanyRepository companyRepository) {
+    public CommonController(ICandidateRepository candidateRepository,
+                            ICompanyRepository companyRepository,
+                            JobService jobService) {
         this.candidateRepository = candidateRepository;
         this.companyRepository = companyRepository;
+        this.jobService = jobService;
     }
 
+
     @GetMapping
-    public String index() {
-        return "index";
+    public String index(Model model) {
+        // Lấy danh sách công việc
+        List<Job> jobs = jobService.findAll(0, 10);  // Thay đổi page và size nếu cần
+        model.addAttribute("jobs", jobs);
+        return "index"; // Trả về trang home (index.html)
     }
 
     @GetMapping("/open-sign-in")

@@ -19,4 +19,5 @@ public interface IJobRepository extends PagingAndSortingRepository<Job, Long>, C
     @Query("select j from Job j join j.jobSkills jk join jk.skill s join s.candidateSkills ck" +
             " where ck.candidate.id = :candidateID and ck.candidate.address.city = j.company.address.city")
     public List<Job> findAllJobMatchWithCandidate(@Param("candidateID") long candidateID);
+
 }

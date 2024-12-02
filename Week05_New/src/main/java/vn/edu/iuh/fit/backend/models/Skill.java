@@ -50,4 +50,13 @@ public class Skill {
                 ", skillDescription='" + skillDescription + '\'' +
                 '}';
     }
+
+    public Skill(String skillDescription, String skillName, SkillType type, long id, List<JobSkill> jobSkills, List<CandidateSkill> candidateSkills) {
+        this.skillDescription = skillDescription;
+        this.skillName = skillName;
+        this.type = type;
+        this.id = id;
+        this.jobSkills = jobSkills;
+        this.candidateSkills = candidateSkills;
+    }
 }

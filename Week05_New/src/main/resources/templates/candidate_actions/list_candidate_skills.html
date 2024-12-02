@@ -62,20 +62,27 @@
 <!-- Candidate Skills Section -->
 <div class="container">
     <div th:switch="${candidateSkills}">
-        <!-- No Skills -->
         <h2 th:case="null" class="no-skills">Không có kỹ năng nào ứng viên đã học</h2>
-        <!-- Skills Table -->
         <div th:case="*">
-            <h1>Danh Sách Các Kỹ Năng Của Ứng Viên</h1>
-            <table class="table table-hover">
+            <h1>Danh sách các Candidate Skills của Ứng viên</h1>
+
+            <!-- Button to Add Skill -->
+            <div class="text-center mb-4">
+                <a th:href="@{/candidate_skills/openAddCandSkill(candidateID=${candidate.getId()})}"
+                   class="btn btn-primary">
+                    Thêm Kỹ Năng Ứng Viên
+                </a>
+            </div>
+
+            <!-- Skills Table -->
+            <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Candidate ID</th>
-                    <th>Skill ID</th>
-                    <th>Tên Kỹ Năng</th>
-                    <th>Cấp Độ Kỹ Năng</th>
-                    <th>Thông Tin Thêm</th>
-                    <th>Hành Động</th>
+                    <th>CanID</th>
+                    <th>SkillID</th>
+                    <th>Skill Name</th>
+                    <th>Skill Level</th>
+                    <th>More Infos</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -84,12 +91,8 @@
                     <td th:text="${candidateSkill.getSkill().getId()}"></td>
                     <td th:text="${candidateSkill.getSkill().getSkillName()}"></td>
                     <td th:text="${candidateSkill.getSkillLevel()}"></td>
-                    <td th:text="${candidateSkill.getMoreInfo()}"></td>
                     <td>
-                        <a th:href="@{/candidate_skills/openAddCandSkill(candidateID=${candidateSkill.getCandidate().getId()})}"
-                           class="btn btn-primary btn-sm">
-                            Thêm Kỹ Năng
-                        </a>
+                        <!-- Additional Info Links can go here -->
                     </td>
                 </tr>
                 </tbody>
@@ -98,8 +101,7 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

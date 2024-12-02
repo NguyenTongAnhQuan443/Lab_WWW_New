@@ -12,10 +12,12 @@ import vn.edu.iuh.fit.backend.models.Company;
 import vn.edu.iuh.fit.backend.models.Job;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/jobs")
 public class JobController {
+
     private IJobRepository jobRepository;
     @Autowired
     public JobController(IJobRepository jobRepository) {

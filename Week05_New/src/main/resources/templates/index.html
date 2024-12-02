@@ -72,33 +72,18 @@
 <div class="container job-listings">
     <h2 class="text-center mb-4">Featured Jobs</h2>
     <div class="row">
-        <div class="col-md-4">
+        <!-- Duyệt qua danh sách công việc từ controller -->
+        <div th:each="job : ${jobs}" class="col-md-4">
             <div class="card job-card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Software Engineer</h5>
-                    <p class="card-text">Google - Mountain View, CA</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                    <!-- Sử dụng job.name thay vì job.job_name -->
+                    <h5 th:text="${job.name}" class="card-title">Job Title</h5>
+                    <p th:text="'Company: ' + ${job.company.name}" class="card-text">Company - Location</p>
+                    <a th:href="@{/job/{id}(id=${job.id})}" class="btn btn-outline-primary btn-sm">View Details</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card job-card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Marketing Specialist</h5>
-                    <p class="card-text">Amazon - Seattle, WA</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card job-card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">UI/UX Designer</h5>
-                    <p class="card-text">Adobe - San Jose, CA</p>
-                    <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
