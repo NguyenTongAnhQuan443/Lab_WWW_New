@@ -24,7 +24,7 @@ II. Công nghệ được sử dụng
 - Bổ sung User nameand password cho Company và Candidate để thực hiện chức năng đăng nhập đăng ký tài khoản trước khi đăng tin tuyển dụng hoặc tìm kiếm việc làm.
 - Bổ sung bảng Applycation để lưu thông tin ứng viên đã ứng tuyển vào công việc nào.
 
-## GUI - COMPANY
+## GUI - COMPANY (Khi đăng nhập với tài khoản Company)
 ### 1) Home Page
 ![img.png](img.png)
 ### 2) Trang Đăng Ký Tài Khoản Company
@@ -33,27 +33,27 @@ II. Công nghệ được sử dụng
 ![img_2.png](img_2.png)
 ### 4) Trang Đăng Nhập
 ![img_3.png](img_3.png)
-### 5) Home Page của Company
+### 5) Home Page của Company (Mặc định sẽ hiểu thị các job mà website đề xuất)
 ![img_4.png](img_4.png)
-### 6) Company post job
+### 6) Company post job (oompnay sẽ tiến hành đăng tin tuyên dụng taị đây)
 ![img_5.png](img_5.png)
-### 7) Công ty thêm 1 skill cho job
+### 7) Công ty thêm 1 skill mà công ty yêu cầu cho job
 ![img_6.png](img_6.png)
-### 8) Công ty xem danh sách job đã post
+### 8) Công ty xem danh sách job đã post và có thể bổ sung kỹ năng mà công ty yêu cầu cho job
 ![img_7.png](img_7.png)
 ### 9) Công ty thêm kỹ năng yêu cầu cho job
 ![img_8.png](img_8.png)
-### 10) Tìm kếm ứng viên cho job
+### 10) Tìm kếm ứng viên cho job (Hệ thống se gợi ý các ứng viên phù hợp với công việc dựa vào kỹ năng mà công ty yêu cầu, và đia điểm làm việc)
 ![img_9.png](img_9.png)
 
-## GUI - CANDIDATE
-### 1) Home Page
+## GUI - CANDIDATE (Giao diện khi đăng nhập với tài khoản Candidate)
+### 1) Home Page (Mặc định sẽ hiểu thi các công việc mà website đề xuất)
 ![img_10.png](img_10.png)
-### 2) Công việc phù hợp với kỹ năng của candidate
+### 2) Công việc phù hợp với kỹ năng của candidate (Website sẽ gợi ý các công việc phù hợp với kỹ năng mà candidate đã học và dựa vào địa chỉ của candidate so với địa chỉ làm việc)
 ![img_13.png](img_13.png)
-### 4) Danh sách kỹ năng candidate đã học
+### 4) Danh sách kỹ năng candidate đã học (Candidate có thể xem lại danh sách kỹ năng mà mình đã học và thêm kỹ năng mới)
 ![img_12.png](img_12.png)
-### 5) Gợi ý ký năng candidate cần học 
+### 5) Gợi ý ký năng candidate cần học (Dựa vào các yêu cầu của công việc mà company đưa ra, hệ thống sẽ gợi ý các kỹ năng mà candidate cần học)
 ![img_11.png](img_11.png)
 ### 6) Candidate thêm kỹ năng mình đã học
 ![img_14.png](img_14.png)
